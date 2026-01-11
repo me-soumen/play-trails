@@ -376,6 +376,19 @@ body {
     font-size: 0.9rem;
 }
 
+.footer-bottom .footer-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border-bottom: 1px solid transparent;
+}
+
+.footer-bottom .footer-link:hover {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .logo-img {

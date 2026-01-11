@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman - Play Trails</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="btn-back" onclick="window.location.href='../index.html'">← Back to Games</button>
+            <h1>Hangman</h1>
+        </header>
+
+        <div class="game-wrapper">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Lives:</span>
+                        <span class="stat-value" id="lives">6</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Category:</span>
+                        <span class="stat-value" id="category">-</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-sidebar" id="newGame">New Game</button>
+                    <button class="btn-sidebar" id="categoryBtn">Random</button>
+                </div>
+
+                <div class="hint-section">
+                    <h3>Hint</h3>
+                    <p id="hintText">-</p>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board-wrapper">
+                <div class="hangman-display" id="hangmanDisplay">
+                    <svg viewBox="0 0 200 250" class="hangman-svg">
+                        <!-- Gallows -->
+                        <line x1="50" y1="200" x2="50" y2="50" stroke="#8B4513" stroke-width="4"/>
+                        <line x1="50" y1="50" x2="120" y2="50" stroke="#8B4513" stroke-width="4"/>
+                        <line x1="120" y1="50" x2="120" y2="75" stroke="#8B4513" stroke-width="4"/>
+                        
+                        <!-- Head -->
+                        <circle cx="120" cy="90" r="15" stroke="#333" stroke-width="3" fill="none" id="head"/>
+                        <!-- Body -->
+                        <line x1="120" y1="105" x2="120" y2="160" stroke="#333" stroke-width="3" id="body"/>
+                        <!-- Left Arm -->
+                        <line x1="120" y1="125" x2="100" y2="145" stroke="#333" stroke-width="3" id="leftArm"/>
+                        <!-- Right Arm -->
+                        <line x1="120" y1="125" x2="140" y2="145" stroke="#333" stroke-width="3" id="rightArm"/>
+                        <!-- Left Leg -->
+                        <line x1="120" y1="160" x2="100" y2="185" stroke="#333" stroke-width="3" id="leftLeg"/>
+                        <!-- Right Leg -->
+                        <line x1="120" y1="160" x2="140" y2="185" stroke="#333" stroke-width="3" id="rightLeg"/>
+                    </svg>
+                </div>
+
+                <div class="word-display" id="wordDisplay"></div>
+
+                <div class="keyboard" id="keyboard"></div>
+
+                <div class="game-status" id="gameStatus"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Game Over</h2>
+                <p id="modalMessage"></p>
+                <div class="modal-stats">
+                    <p>Word: <strong id="modalWord">-</strong></p>
+                </div>
+                <button class="btn btn-modal" id="modalButton">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

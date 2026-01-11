@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game - Play Trails</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="btn-back" onclick="window.location.href='../index.html'">← Back to Games</button>
+            <h1>Memory Game</h1>
+        </header>
+
+        <div class="game-wrapper">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Moves:</span>
+                        <span class="stat-value" id="moves">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pairs:</span>
+                        <span class="stat-value" id="pairs">0 / 0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value" id="timer">00:00</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-sidebar" id="newGame">New Game</button>
+                    <button class="btn-sidebar" id="difficulty">Easy</button>
+                </div>
+
+                <div class="score-board">
+                    <h3>Best Score</h3>
+                    <div class="best-score">
+                        <p>Moves: <strong id="bestMoves">-</strong></p>
+                        <p>Time: <strong id="bestTime">-</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="game-board-wrapper">
+                <div class="memory-grid" id="memoryGrid"></div>
+                <div class="game-status" id="gameStatus"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">🎉 Congratulations!</h2>
+                <p id="modalMessage">You found all pairs!</p>
+                <div class="modal-stats">
+                    <p>Moves: <strong id="modalMoves">0</strong></p>
+                    <p>Time: <strong id="modalTime">00:00</strong></p>
+                </div>
+                <button class="btn btn-modal" id="modalButton">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

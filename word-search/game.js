@@ -2,19 +2,48 @@ class WordSearch {
     constructor() {
         this.gridSize = 15;
         this.grid = [];
-        // Shorter words for easier placement
-        this.words = ['JAVASCRIPT', 'PYTHON', 'REACT', 'HTML', 'CSS', 'CODE', 'GITHUB', 'NODE'];
+        // Word pool - diverse categories
+        this.wordPool = [
+            // Tech
+            'JAVASCRIPT', 'PYTHON', 'REACT', 'NODEJS', 'HTML', 'CSS', 'GITHUB', 'CODE',
+            'JAVA', 'RUBY', 'SWIFT', 'GO', 'RUST', 'PHP', 'SQL', 'JSON',
+            // Cities
+            'LONDON', 'PARIS', 'TOKYO', 'DELHI', 'MUMBAI', 'NEWYORK', 'DUBAI', 'SYDNEY',
+            'BEIJING', 'MOSCOW', 'CAIRO', 'ROME', 'MADRID', 'BANGKOK', 'SINGAPORE', 'SEOUL',
+            // Animals
+            'TIGER', 'LION', 'EAGLE', 'SHARK', 'WHALE', 'BEAR', 'WOLF', 'FOX',
+            'DEER', 'PANDA', 'KOALA', 'PENGUIN', 'DOLPHIN', 'ELEPHANT', 'GIRAFFE', 'ZEBRA',
+            // Body Parts
+            'HEART', 'BRAIN', 'LIVER', 'SPLEEN', 'STOMACH', 'KIDNEY', 'LUNGS', 'SKIN',
+            'MUSCLE', 'BONE', 'NERVE', 'VEIN', 'ARTERY', 'THUMB', 'FINGER', 'TOE',
+            // Fruits
+            'APPLE', 'BANANA', 'ORANGE', 'MANGO', 'GRAPES', 'CHERRY', 'PEACH', 'PEAR',
+            'LEMON', 'KIWI', 'MELON', 'BERRY', 'PAPAYA', 'GUAVA', 'PLUM', 'DATE',
+            // Vegetables
+            'CARROT', 'POTATO', 'TOMATO', 'ONION', 'CABBAGE', 'SPINACH', 'BROCCOLI', 'CORN',
+            'BEANS', 'PEAS', 'PEPPER', 'CELERY', 'CUCUMBER', 'LETTUCE', 'RADISH', 'GARLIC',
+            // Countries
+            'INDIA', 'CHINA', 'JAPAN', 'FRANCE', 'GERMANY', 'ITALY', 'SPAIN', 'BRAZIL',
+            'CANADA', 'MEXICO', 'EGYPT', 'RUSSIA', 'AUSTRALIA', 'SOUTHKOREA', 'THAILAND', 'TURKEY',
+            // Subjects
+            'MATH', 'SCIENCE', 'HISTORY', 'GEOGRAPHY', 'PHYSICS', 'CHEMISTRY', 'BIOLOGY', 'ENGLISH',
+            'PHILOSOPHY', 'LITERATURE', 'ART', 'MUSIC', 'ECONOMICS', 'POLITICS', 'SOCIOLOGY', 'PSYCHOLOGY'
+        ];
+        this.currentWords = [];
+        this.level = 1;
         this.foundWords = new Set();
         this.selectedCells = [];
         this.isSelecting = false;
         this.timer = null;
         this.timeElapsed = 0;
         this.gameComplete = false;
+        this.wordsPerLevel = 5;
 
         this.init();
     }
 
     init() {
+        this.selectNewWords();
         this.generateGrid();
         this.renderGrid();
         this.renderWordList();
@@ -26,8 +55,20 @@ class WordSearch {
         document.getElementById('newGame').addEventListener('click', () => this.newGame());
         document.getElementById('modalButton').addEventListener('click', () => {
             this.closeModal();
-            this.newGame();
+            if (this.gameComplete) {
+                this.nextLevel();
+            } else {
+                this.newGame();
+            }
         });
+    }
+
+    selectNewWords() {
+        // Select 5 random words from the pool
+        const shuffled = [...this.wordPool].sort(() => Math.random() - 0.5);
+        this.currentWords = shuffled.slice(0, this.wordsPerLevel);
+        this.foundWords = new Set();
+        this.gameComplete = false;
     }
 
     generateGrid() {
@@ -44,11 +85,11 @@ class WordSearch {
             [1, -1],  // diagonal ↙
         ];
 
-        for (let word of this.words) {
+        for (let word of this.currentWords) {
             let placed = false;
             let attempts = 0;
             
-            while (!placed && attempts < 200) {
+            while (!placed && attempts < 300) {
                 const dir = directions[Math.floor(Math.random() * directions.length)];
                 
                 // Calculate bounds
@@ -58,13 +99,13 @@ class WordSearch {
                 if (dir[1] > 0) maxCol = this.gridSize - word.length;
                 if (dir[1] < 0) maxCol = word.length - 1;
                 
-                if (maxRow < 0 || maxCol < 0 || maxRow >= this.gridSize || maxCol >= this.gridSize) {
+                if (maxRow <= 0 || maxCol <= 0 || maxRow >= this.gridSize || maxCol >= this.gridSize) {
                     attempts++;
                     continue;
                 }
                 
-                const row = Math.floor(Math.random() * maxRow);
-                const col = Math.floor(Math.random() * maxCol);
+                const row = Math.floor(Math.random() * Math.max(1, maxRow));
+                const col = Math.floor(Math.random() * Math.max(1, maxCol));
                 
                 // Check if word can fit
                 let canPlace = true;
@@ -96,11 +137,12 @@ class WordSearch {
                 attempts++;
             }
             
-            // If word couldn't be placed, place it horizontally at start
+            // Fallback: place word horizontally at a safe row
             if (!placed) {
+                const safeRow = (this.currentWords.indexOf(word) * 2) % this.gridSize;
                 for (let i = 0; i < word.length && i < this.gridSize; i++) {
-                    if (this.grid[this.words.indexOf(word)][i] === null) {
-                        this.grid[this.words.indexOf(word)][i] = word[i];
+                    if (this.grid[safeRow][i] === null) {
+                        this.grid[safeRow][i] = word[i];
                     }
                 }
             }
@@ -157,7 +199,16 @@ class WordSearch {
         
         wordList.innerHTML = '';
         
-        this.words.forEach(word => {
+        // Add level indicator
+        const levelHeader = document.createElement('li');
+        levelHeader.style.gridColumn = '1 / -1';
+        levelHeader.style.fontWeight = '700';
+        levelHeader.style.color = 'var(--dark-color)';
+        levelHeader.style.background = 'transparent';
+        levelHeader.textContent = `Level ${this.level} - Find 5 Words`;
+        wordList.appendChild(levelHeader);
+        
+        this.currentWords.forEach(word => {
             const li = document.createElement('li');
             li.textContent = word;
             li.setAttribute('data-word', word);
@@ -231,7 +282,6 @@ class WordSearch {
 
         // Get word from selected cells
         let word = '';
-        let reverseWord = '';
         
         this.selectedCells.forEach(([row, col]) => {
             if (row >= 0 && row < this.gridSize && col >= 0 && col < this.gridSize) {
@@ -239,10 +289,10 @@ class WordSearch {
             }
         });
 
-        reverseWord = word.split('').reverse().join('');
+        const reverseWord = word.split('').reverse().join('');
 
-        // Check if word matches any word in the list
-        for (let targetWord of this.words) {
+        // Check if word matches any word in the current list
+        for (let targetWord of this.currentWords) {
             if (word === targetWord || reverseWord === targetWord) {
                 if (!this.foundWords.has(targetWord)) {
                     this.foundWords.add(targetWord);
@@ -250,8 +300,8 @@ class WordSearch {
                     this.updateWordsFound();
                     this.renderWordList();
                     
-                    if (this.foundWords.size === this.words.length) {
-                        this.completeGame();
+                    if (this.foundWords.size === this.currentWords.length) {
+                        this.completeLevel();
                     }
                 }
                 break;
@@ -272,23 +322,46 @@ class WordSearch {
     updateWordsFound() {
         const element = document.getElementById('wordsFound');
         if (element) {
-            element.textContent = `${this.foundWords.size} / ${this.words.length}`;
+            element.textContent = `${this.foundWords.size} / ${this.currentWords.length}`;
+        }
+        
+        const levelElement = document.getElementById('level');
+        if (levelElement) {
+            levelElement.textContent = this.level;
         }
     }
 
-    completeGame() {
+    completeLevel() {
         this.gameComplete = true;
-        this.stopTimer();
         
         const statusElement = document.getElementById('gameStatus');
         if (statusElement) {
-            statusElement.textContent = '🎉 Congratulations! You found all words!';
+            statusElement.textContent = `🎉 Level ${this.level} Complete! Finding next level...`;
             statusElement.className = 'game-status success';
         }
 
         setTimeout(() => {
-            this.showModal();
-        }, 1000);
+            this.nextLevel();
+        }, 2000);
+    }
+
+    nextLevel() {
+        this.level++;
+        this.selectNewWords();
+        this.generateGrid();
+        this.renderGrid();
+        this.renderWordList();
+        this.updateWordsFound();
+        
+        const statusElement = document.getElementById('gameStatus');
+        if (statusElement) {
+            statusElement.textContent = `Level ${this.level} - Find 5 new words!`;
+            statusElement.className = 'game-status success';
+            setTimeout(() => {
+                statusElement.textContent = '';
+                statusElement.className = 'game-status';
+            }, 2000);
+        }
     }
 
     startTimer() {
@@ -317,27 +390,20 @@ class WordSearch {
 
     newGame() {
         this.stopTimer();
-        this.grid = [];
-        this.foundWords = new Set();
-        this.selectedCells = [];
-        this.isSelecting = false;
+        this.level = 1;
         this.timeElapsed = 0;
-        this.gameComplete = false;
-
-        const wordsFoundElement = document.getElementById('wordsFound');
-        if (wordsFoundElement) {
-            wordsFoundElement.textContent = `0 / ${this.words.length}`;
-        }
+        this.selectNewWords();
+        this.generateGrid();
+        this.renderGrid();
+        this.renderWordList();
+        this.updateWordsFound();
         
         const statusElement = document.getElementById('gameStatus');
         if (statusElement) {
             statusElement.textContent = '';
             statusElement.className = 'game-status';
         }
-
-        this.generateGrid();
-        this.renderGrid();
-        this.renderWordList();
+        
         this.startTimer();
         this.closeModal();
     }
@@ -357,7 +423,12 @@ class WordSearch {
         
         const wordsElement = document.getElementById('modalWords');
         if (wordsElement) {
-            wordsElement.textContent = `${this.words.length} / ${this.words.length}`;
+            wordsElement.textContent = `${this.currentWords.length} / ${this.currentWords.length}`;
+        }
+        
+        const messageElement = document.getElementById('modalMessage');
+        if (messageElement) {
+            messageElement.textContent = `Level ${this.level} Complete! Ready for next level?`;
         }
 
         modal.classList.add('show');

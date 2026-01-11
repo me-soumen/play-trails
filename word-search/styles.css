@@ -202,13 +202,13 @@ header h1 {
 
 .word-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
     gap: 2px;
     background: var(--dark-color);
     padding: 2px;
     border-radius: 8px;
     max-width: 600px;
     width: 100%;
+    /* Grid columns will be set dynamically by JS */
 }
 
 .grid-cell {
@@ -226,6 +226,12 @@ header h1 {
     -webkit-tap-highlight-color: transparent;
     transition: var(--transition);
     border-radius: 2px;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
 }
 
 .grid-cell.selected {
@@ -363,13 +369,22 @@ header h1 {
         font-size: 2rem;
     }
 
+    .word-grid-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .word-grid {
-        grid-template-columns: repeat(12, 1fr);
         max-width: 100%;
+        gap: 1px;
+        padding: 1px;
+        min-width: min(100vw - 40px, 450px);
     }
 
     .grid-cell {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        padding: 0;
+        min-width: 0;
     }
 
     .word-list {
@@ -382,11 +397,21 @@ header h1 {
         font-size: 1.5rem;
     }
 
+    .word-grid-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 5px;
+    }
+
     .word-grid {
-        grid-template-columns: repeat(12, 1fr);
+        gap: 1px;
+        padding: 1px;
+        min-width: min(100vw - 20px, 380px);
     }
 
     .grid-cell {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
+        padding: 0;
+        min-width: 0;
     }
 }
