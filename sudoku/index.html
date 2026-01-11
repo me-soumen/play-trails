@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Professional Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="btn-back">← Back to Games</a>
+            <h1>Sudoku</h1>
+            <p class="subtitle">Challenge Your Mind with Numbers</p>
+        </header>
+
+        <div class="game-wrapper">
+            <!-- Score Card Section -->
+            <div class="score-card">
+                <h2>Game Info</h2>
+                <div class="size-selector-container">
+                    <h3>Grid Size</h3>
+                    <div class="size-selector">
+                        <button class="size-btn active" data-size="6" id="size6x6">6×6</button>
+                        <button class="size-btn" data-size="9" id="size9x9">9×9</button>
+                    </div>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Timer</div>
+                        <div class="stat-value" id="timer">00:00</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Size</div>
+                        <div class="stat-value" id="currentSize">6×6</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Mistakes</div>
+                        <div class="stat-value" id="mistakes">0</div>
+                    </div>
+                </div>
+                <div class="game-controls-sidebar">
+                    <button class="btn-sidebar" id="newGame">New Game</button>
+                    <button class="btn-sidebar" id="checkSolution">Check</button>
+                    <button class="btn-sidebar" id="solvePuzzle">Hint</button>
+                </div>
+            </div>
+
+            <!-- Game Board Section -->
+            <div class="game-board-wrapper">
+                <div class="game-controls-top">
+                    <div class="number-selector" id="numberSelector">
+                        <button class="num-btn" data-number="1">1</button>
+                        <button class="num-btn" data-number="2">2</button>
+                        <button class="num-btn" data-number="3">3</button>
+                        <button class="num-btn" data-number="4">4</button>
+                        <button class="num-btn" data-number="5">5</button>
+                        <button class="num-btn" data-number="6">6</button>
+                        <button class="num-btn" data-number="7">7</button>
+                        <button class="num-btn" data-number="8">8</button>
+                        <button class="num-btn" data-number="9">9</button>
+                        <button class="num-btn clear-btn" data-number="0">Clear</button>
+                    </div>
+                </div>
+
+                <div class="sudoku-container">
+                    <div class="sudoku-grid" id="sudokuGrid">
+                        <!-- Grid will be generated dynamically -->
+                    </div>
+                </div>
+
+                <div class="game-status" id="gameStatus"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Congratulations!</h2>
+                <p id="modalMessage"></p>
+                <div class="modal-stats">
+                    <p>Time: <strong id="modalTime">00:00</strong></p>
+                    <p>Mistakes: <strong id="modalMistakes">0</strong></p>
+                </div>
+                <button class="btn btn-modal" id="modalButton">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
