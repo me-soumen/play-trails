@@ -3,75 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe - Professional Game</title>
+    <title>Play Trails - Collection of Fun Games</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Tic Tac Toe</h1>
-            <p class="subtitle">A Classic Game of Strategy</p>
-        </header>
-
-        <div class="game-wrapper">
-            <!-- Score Card Section -->
-            <div class="score-card">
-                <h2>Score Board</h2>
-                <div class="score-stats">
-                    <div class="score-item player-x">
-                        <div class="score-icon">✕</div>
-                        <div class="score-label">Player X</div>
-                        <div class="score-value" id="scoreX">0</div>
-                    </div>
-                    <div class="score-item draws">
-                        <div class="score-icon">—</div>
-                        <div class="score-label">Draws</div>
-                        <div class="score-value" id="scoreDraws">0</div>
-                    </div>
-                    <div class="score-item player-o">
-                        <div class="score-icon">○</div>
-                        <div class="score-label">Player O</div>
-                        <div class="score-value" id="scoreO">0</div>
-                    </div>
-                </div>
-                <button class="btn-reset" id="resetScore">Reset Scores</button>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="Play Trails Logo" class="logo-img">
             </div>
+            <nav class="main-nav">
+                <a href="#games" class="nav-link">Games</a>
+                <a href="#about" class="nav-link">About</a>
+            </nav>
+        </div>
+    </header>
 
-            <!-- Game Board Section -->
-            <div class="game-board-wrapper">
-                <div class="current-player" id="currentPlayer">
-                    <span class="player-indicator">X</span>
-                    <span>Player <span class="player-name">X</span>'s Turn</span>
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="hero-section">
+            <h1 class="hero-title">Welcome to Play Trails</h1>
+            <p class="hero-subtitle">A Collection of Fun & Engaging Games</p>
+        </section>
+
+        <section id="games" class="games-section">
+            <h2 class="section-title">Choose Your Game</h2>
+            <div class="games-grid">
+                <div class="game-card" data-game="tic-tac-toe">
+                    <div class="game-icon">✕</div>
+                    <h3>Tic Tac Toe</h3>
+                    <p class="game-description">Classic strategy game for two players</p>
+                    <div class="game-tags">
+                        <span class="tag">Strategy</span>
+                        <span class="tag">2 Players</span>
+                    </div>
+                    <button class="btn-play">Play Now</button>
                 </div>
 
-                <div class="game-board" id="gameBoard">
-                    <div class="cell" data-index="0"></div>
-                    <div class="cell" data-index="1"></div>
-                    <div class="cell" data-index="2"></div>
-                    <div class="cell" data-index="3"></div>
-                    <div class="cell" data-index="4"></div>
-                    <div class="cell" data-index="5"></div>
-                    <div class="cell" data-index="6"></div>
-                    <div class="cell" data-index="7"></div>
-                    <div class="cell" data-index="8"></div>
+                <div class="game-card" data-game="color-match">
+                    <div class="game-icon">🎨</div>
+                    <h3>Color Match</h3>
+                    <p class="game-description">Match the exact color from similar shades</p>
+                    <div class="game-tags">
+                        <span class="tag">Memory</span>
+                        <span class="tag">Challenge</span>
+                    </div>
+                    <button class="btn-play">Play Now</button>
                 </div>
+            </div>
+        </section>
 
-                <div class="game-controls">
-                    <button class="btn btn-new-game" id="newGame">New Game</button>
-                </div>
+        <section id="about" class="about-section">
+            <h2 class="section-title">About Play Trails</h2>
+            <p class="about-text">
+                Play Trails is your destination for fun, engaging, and entertaining games. 
+                Whether you're looking to challenge your mind or simply pass the time, 
+                we've got games for everyone. More exciting games are on the way!
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Play Trails</h4>
+                <p>Your ultimate gaming destination</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>More games coming soon!</p>
             </div>
         </div>
-
-        <!-- Game Over Modal -->
-        <div class="modal" id="gameModal">
-            <div class="modal-content">
-                <h2 id="modalTitle">Game Over!</h2>
-                <p id="modalMessage"></p>
-                <button class="btn btn-modal" id="modalButton">Play Again</button>
-            </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Play Trails. All rights reserved.</p>
         </div>
-    </div>
+    </footer>
 
-    <script src="js/game.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

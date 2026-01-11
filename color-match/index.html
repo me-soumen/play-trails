@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Match - Professional Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="btn-back">← Back to Games</a>
+            <h1>Color Match</h1>
+                <p class="subtitle">Match the exact color from similar shades</p>
+        </header>
+
+        <div class="game-wrapper">
+            <!-- Score Card Section -->
+            <div class="score-card">
+                <h2>Score Board</h2>
+                <div class="score-stats">
+                    <div class="score-item high-score">
+                        <div class="score-icon">🏆</div>
+                        <div class="score-label">High Score</div>
+                        <div class="score-value" id="highScore">0</div>
+                    </div>
+                    <div class="score-item current-score">
+                        <div class="score-icon">⭐</div>
+                        <div class="score-label">Current Score</div>
+                        <div class="score-value" id="currentScore">0</div>
+                    </div>
+                    <div class="score-item games-played">
+                        <div class="score-icon">🎮</div>
+                        <div class="score-label">Games Played</div>
+                        <div class="score-value" id="gamesPlayed">0</div>
+                    </div>
+                </div>
+                <button class="btn-reset" id="resetScore">Reset Scores</button>
+            </div>
+
+            <!-- Game Board Section -->
+            <div class="game-board-wrapper">
+                <div class="game-info">
+                    <div class="level-info" id="levelInfo">
+                        <span>Level: <strong id="level">1</strong></span>
+                        <span>Time: <strong id="timeLeft">12</strong>s</span>
+                    </div>
+                </div>
+
+                <div class="target-color" id="targetColor">
+                    <div class="color-display" id="colorDisplay"></div>
+                    <p>Match this color!</p>
+                </div>
+
+                <div class="color-grid" id="colorGrid">
+                    <!-- Colors will be generated dynamically -->
+                </div>
+
+                <div class="game-controls">
+                    <button class="btn btn-start" id="startGame">Start Game</button>
+                    <button class="btn btn-new-game" id="newGame" style="display: none;">New Game</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Game Over!</h2>
+                <p id="modalMessage"></p>
+                <div class="modal-score">
+                    <p>Your Score: <strong id="modalScore">0</strong></p>
+                </div>
+                <button class="btn btn-modal" id="modalButton">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
