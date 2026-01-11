@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz - Professional Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="../index.html" class="btn-back">← Back to Games</a>
+            <h1>Math Quiz</h1>
+            <p class="subtitle">Test Your Math Skills</p>
+        </header>
+
+        <div class="game-wrapper">
+            <!-- Score Card Section -->
+            <div class="score-card">
+                <h2>Game Info</h2>
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Score</div>
+                        <div class="stat-value" id="score">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Question</div>
+                        <div class="stat-value" id="questionNum">1 / 10</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Time</div>
+                        <div class="stat-value" id="timeLeft">30s</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Best Score</div>
+                        <div class="stat-value" id="bestScore">0</div>
+                    </div>
+                </div>
+                <div class="game-controls-sidebar">
+                    <button class="btn-sidebar" id="startGame">Start Game</button>
+                    <button class="btn-sidebar" id="newGame" style="display: none;">New Game</button>
+                    <button class="btn-sidebar" id="resetScore">Reset Best</button>
+                </div>
+            </div>
+
+            <!-- Game Board Section -->
+            <div class="game-board-wrapper">
+                <div class="question-container" id="questionContainer">
+                    <div class="question" id="question">Ready to start?</div>
+                    <div class="answer-input-container">
+                        <input type="number" id="answerInput" placeholder="Your answer" disabled>
+                        <button class="btn-submit" id="submitBtn" disabled>Submit</button>
+                    </div>
+                </div>
+                <div class="game-status" id="gameStatus"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div class="modal" id="gameModal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Game Over!</h2>
+                <p id="modalMessage"></p>
+                <div class="modal-stats">
+                    <p>Score: <strong id="modalScore">0</strong></p>
+                    <p>Correct: <strong id="modalCorrect">0</strong>/10</p>
+                </div>
+                <button class="btn btn-modal" id="modalButton">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
